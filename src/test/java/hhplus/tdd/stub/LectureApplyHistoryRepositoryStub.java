@@ -1,38 +1,49 @@
 package hhplus.tdd.stub;
 
 import hhplus.tdd.entity.LectureApplyHistoryEntity;
+import hhplus.tdd.entity.LectureApplyHistoryEntityPK;
 import hhplus.tdd.repository.LectureApplyHistoryRepository;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LectureApplyHistoryRepositoryStub implements LectureApplyHistoryRepository {
 
-    List<LectureApplyHistoryEntity> store = new ArrayList<>();
+//    List<LectureApplyHistoryEntity> store = new ArrayList<>();
 
-    @Override
-    public List<LectureApplyHistoryEntity> findAll() {
-        return this.store;
+    Map<LectureApplyHistoryEntityPK, LectureApplyHistoryEntity> store = new ConcurrentHashMap<>();
+
+    public void clear(){
+        store.clear();
     }
 
     @Override
-    public List<LectureApplyHistoryEntity> findAllByUserId(long userId) {
-        return store
+    public List<LectureApplyHistoryEntity> findAllByLectureId(Long lectureId) {
+        return store.values()
                 .stream()
-                .filter(e -> e.getUserId().equals(userId))
+                .filter(history -> history.getLectureId().equals(lectureId))
                 .toList();
     }
 
     @Override
-    public Optional<LectureApplyHistoryEntity> save(LectureApplyHistoryEntity lectureApplyHistoryEntity) {
-        lectureApplyHistoryEntity.setUpdateTime(System.currentTimeMillis());
-        store.add(lectureApplyHistoryEntity);
-        return Optional.of(lectureApplyHistoryEntity);
+    public LectureApplyHistoryEntity save(LectureApplyHistoryEntity lectureApplyHistoryEntity) {
+        lectureApplyHistoryEntity.setCreateTime(LocalDateTime.now());
+
+        store.put(
+                new LectureApplyHistoryEntityPK(
+                        lectureApplyHistoryEntity.getUserId(),
+                        lectureApplyHistoryEntity.getLectureId()
+                ),
+                lectureApplyHistoryEntity
+        );
+
+        return lectureApplyHistoryEntity;
     }
 
     @Override
-    public boolean existsByUserId(long userId) {
-        return store.stream().anyMatch(e->e.getUserId().equals(userId));
+    public boolean existsById(LectureApplyHistoryEntityPK pk) {
+        return store.containsKey(pk);
     }
 }

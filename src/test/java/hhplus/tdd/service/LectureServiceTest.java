@@ -1,23 +1,33 @@
 package hhplus.tdd.service;
 
 import hhplus.tdd.domain.LectureApplyHistoryDomain;
-import hhplus.tdd.repository.LectureApplyHistoryRepository;
 import hhplus.tdd.stub.LectureApplyHistoryRepositoryStub;
+import hhplus.tdd.stub.LectureRepositoryStub;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LectureServiceTest {
 
     LectureService lectureService;
+    LectureRepositoryStub lectureRepository;
+    LectureApplyHistoryRepositoryStub historyRepository;
 
     public LectureServiceTest() {
-        LectureApplyHistoryRepository repo = new LectureApplyHistoryRepositoryStub();
+        lectureRepository = new LectureRepositoryStub();
+        historyRepository = new LectureApplyHistoryRepositoryStub();
 
-        lectureService = new LectureServiceImpl(repo);
+        lectureService = new LectureServiceImpl(lectureRepository, historyRepository);
+    }
+
+    @BeforeEach
+    void beforeEach(){
+        lectureRepository.clear();
+        historyRepository.clear();
     }
 
     @Nested
@@ -78,15 +88,12 @@ class LectureServiceTest {
             Long userId3 = null;
 
             // when
-            RuntimeException e1 = assertThrows(RuntimeException.class, () -> {
-                lectureService.applyLecture(userId1);
-            });
-            RuntimeException e2 = assertThrows(RuntimeException.class, () -> {
-                lectureService.applyLecture(userId2);
-            });
-            RuntimeException e3 = assertThrows(RuntimeException.class, () -> {
-                lectureService.applyLecture(userId3);
-            });
+            RuntimeException e1 = assertThrows(RuntimeException.class, () ->
+                    lectureService.applyLecture(userId1));
+            RuntimeException e2 = assertThrows(RuntimeException.class, () ->
+                    lectureService.applyLecture(userId2));
+            RuntimeException e3 = assertThrows(RuntimeException.class, () ->
+                    lectureService.applyLecture(userId3));
 
             // then
             assertThat("사용자를 찾을 수 없습니다.")

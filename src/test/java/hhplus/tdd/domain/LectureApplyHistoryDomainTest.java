@@ -4,6 +4,8 @@ import hhplus.tdd.dto.LectureApplyHistoryDTO;
 import hhplus.tdd.entity.LectureApplyHistoryEntity;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,16 +15,19 @@ class LectureApplyHistoryDomainTest {
     void toEntity() {
         // given
         Long userId = 1L;
-        Long updateTime = System.currentTimeMillis();
+        Long lectureId = 1L;
+        LocalDateTime createTime = LocalDateTime.now();
 
         LectureApplyHistoryDomain domain = new LectureApplyHistoryDomain(
                 userId,
-                updateTime
+                lectureId,
+                createTime
         );
 
         LectureApplyHistoryEntity entity = new LectureApplyHistoryEntity(
                 userId,
-                updateTime
+                lectureId,
+                createTime
         );
 
         // then
@@ -33,16 +38,19 @@ class LectureApplyHistoryDomainTest {
     void toDTO() {
         // given
         Long userId = 1L;
-        Long updateTime = System.currentTimeMillis();
+        Long lectureId = 1L;
+        LocalDateTime createTime = LocalDateTime.now();
 
         LectureApplyHistoryDomain domain = new LectureApplyHistoryDomain(
                 userId,
-                updateTime
+                lectureId,
+                createTime
         );
 
         LectureApplyHistoryDTO DTO = new LectureApplyHistoryDTO(
                 userId,
-                updateTime
+                lectureId,
+                createTime
         );
 
         // then
@@ -57,10 +65,15 @@ class LectureApplyHistoryDomainTest {
         Long userId_3 = null;
         Long userId_4 = -1L;
 
-        LectureApplyHistoryDomain domain_1 = new LectureApplyHistoryDomain(userId_1, System.currentTimeMillis());
-        LectureApplyHistoryDomain domain_2 = new LectureApplyHistoryDomain(userId_2, System.currentTimeMillis());
-        LectureApplyHistoryDomain domain_3 = new LectureApplyHistoryDomain(userId_3, System.currentTimeMillis());
-        LectureApplyHistoryDomain domain_4 = new LectureApplyHistoryDomain(userId_4, System.currentTimeMillis());
+        Long lectureId_1 = 1L;
+        Long lectureId_2 = null;
+        Long lectureId_3 = -1L;
+        Long lectureId_4 = 0L;
+
+        LectureApplyHistoryDomain domain_1 = new LectureApplyHistoryDomain(userId_1, lectureId_1, LocalDateTime.now());
+        LectureApplyHistoryDomain domain_2 = new LectureApplyHistoryDomain(userId_2, lectureId_2, LocalDateTime.now());
+        LectureApplyHistoryDomain domain_3 = new LectureApplyHistoryDomain(userId_3, lectureId_3, LocalDateTime.now());
+        LectureApplyHistoryDomain domain_4 = new LectureApplyHistoryDomain(userId_4, lectureId_4, LocalDateTime.now());
 
         // then
         assertDoesNotThrow(() -> domain_1.validate());

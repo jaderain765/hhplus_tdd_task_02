@@ -37,6 +37,6 @@ public class LectureController {
      */
     @GetMapping("{userId}")
     public ResponseEntity<Boolean> check(@PathVariable("userId") Long userId) {
-        return new ResponseEntity<>(null);
+        return new ResponseEntity<>(lectureService.checkApply(userId), HttpStatus.OK);
     }
 }

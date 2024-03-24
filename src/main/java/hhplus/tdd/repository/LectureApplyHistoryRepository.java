@@ -1,14 +1,12 @@
 package hhplus.tdd.repository;
 
 import hhplus.tdd.entity.LectureApplyHistoryEntity;
+import hhplus.tdd.entity.LectureApplyHistoryEntityPK;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface LectureApplyHistoryRepository {
-
-    List<LectureApplyHistoryEntity> findAll();
-    List<LectureApplyHistoryEntity> findAllByUserId(long userId);
-    Optional<LectureApplyHistoryEntity> save(LectureApplyHistoryEntity lectureApplyHistoryEntity);
-    boolean existsByUserId(long userId);
+    List<LectureApplyHistoryEntity> findAllByLectureId(Long lectureId);
+    LectureApplyHistoryEntity save(LectureApplyHistoryEntity lectureApplyHistoryEntity);
+    boolean existsById(LectureApplyHistoryEntityPK id);
 }

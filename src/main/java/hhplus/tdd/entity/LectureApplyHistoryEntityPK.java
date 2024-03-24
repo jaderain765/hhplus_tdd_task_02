@@ -1,16 +1,15 @@
-package hhplus.tdd.dto;
+package hhplus.tdd.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LectureApplyHistoryDTO {
+public class LectureApplyHistoryEntityPK implements Serializable {
     private Long userId;
     private Long lectureId;
-    private LocalDateTime createTime;
 }
