@@ -8,18 +8,42 @@
 
 ## 테이블 구조
 
-### 특강 Lecture
+![ERD.png](ERD.png)
 
-- 아이디 (PK)
-- 특강명
-- 강의 날짜
-- 업데이트 시간
+```sql
+-- 강의 기록 테이블
+DROP TABLE hhplus.dbo.LECTURE_APPLY_HISTORY;
 
-### 특강 신청 기록 Lecture_Apply_History
+CREATE TABLE hhplus.dbo.LECTURE_APPLY_HISTORY(
+	USER_ID BIGINT NOT NULL,
+	LECTURE_ID BIGINT NOT NULL,
+	CREATE_TIME DATETIME2,
+	constraint LECTURE_APPLY_HISTORY_PK primary key(USER_ID, LECTURE_ID)
+);
 
-- 신청 유저 아이디 (PK)
-- 신청 강의 아이디 (심화 과제를 고려하여 추가)
-- 생성 시간
+SELECT * FROM hhplus.dbo.LECTURE_APPLY_HISTORY;
+
+-- 강의 테이블
+DROP TABLE hhplus.dbo.LECTURE;
+
+DROP SEQUENCE dbo.LECTURE_SEQ;
+
+CREATE TABLE hhplus.dbo.LECTURE(
+	ID BIGINT NOT NULL PRIMARY KEY,
+	NAME nvarchar(300) NOT NULL,
+	LECTURE_DATE DATETIME2 NOT NULL,
+	UPDATE_TIME DATETIME2 NOT NULL
+);
+
+CREATE SEQUENCE dbo.LECTURE_SEQ
+AS BIGINT
+START WITH 1
+INCREMENT BY 1;
+
+SELECT * FROM hhplus.dbo.LECTURE;
+```
+
+> 해당 SQL은 MSSQL을 기준으로 작성되었습니다.
 
 ## 발제자님의 추가 의견
 
@@ -69,3 +93,5 @@
   - 동시성 문제가 제어되고 있는지, ...
 - E2E
   - Filter/Interceptor의 동작까지 정상적으로 이루어지는지 테스트 작성.
+
+

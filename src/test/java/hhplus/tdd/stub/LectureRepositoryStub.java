@@ -49,15 +49,17 @@ public class LectureRepositoryStub implements LectureRepository {
     @Override
     public LectureEntity save(LectureEntity lectureEntity) {
 
-        Long lectureId;
+        Long lectureId = (lectureEntity.getId() == null) ?
+                id.getAndAdd(1) :
+                lectureEntity.getId();
 
-        if(lectureEntity.getId() == null){
-            lectureId = id.getAndAdd(1);
-            lectureEntity.setId(lectureId);
-        }else {
-            lectureId = lectureEntity.getId();
-        }
+        LectureEntity lecture = new LectureEntity(
+                lectureId,
+                lectureEntity.getName(),
+                lectureEntity.getLectureDate(),
+                lectureEntity.getUpdateTime()
+        );
 
-        return store.put(lectureId, lectureEntity);
+        return store.put(lectureId, lecture);
     }
 }

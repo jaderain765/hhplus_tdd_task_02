@@ -1,6 +1,5 @@
 package hhplus.tdd.domain;
 
-import hhplus.tdd.dto.LectureApplyHistoryDTO;
 import hhplus.tdd.entity.LectureApplyHistoryEntity;
 import org.junit.jupiter.api.Test;
 
@@ -32,29 +31,6 @@ class LectureApplyHistoryDomainTest {
 
         // then
         assertThat(domain.toEntity()).isEqualTo(entity);
-    }
-
-    @Test
-    void toDTO() {
-        // given
-        Long userId = 1L;
-        Long lectureId = 1L;
-        LocalDateTime createTime = LocalDateTime.now();
-
-        LectureApplyHistoryDomain domain = new LectureApplyHistoryDomain(
-                userId,
-                lectureId,
-                createTime
-        );
-
-        LectureApplyHistoryDTO DTO = new LectureApplyHistoryDTO(
-                userId,
-                lectureId,
-                createTime
-        );
-
-        // then
-        assertThat(domain.toDTO()).isEqualTo(DTO);
     }
 
     @Test

@@ -2,21 +2,21 @@ package hhplus.tdd.entity;
 
 import hhplus.tdd.domain.LectureApplyHistoryDomain;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "LECTURE_APPLY_HISTORY")
 @IdClass(LectureApplyHistoryEntityPK.class)
 @EntityListeners(AuditingEntityListener.class)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@EqualsAndHashCode
+@ToString
 public class LectureApplyHistoryEntity {
 
     @Id
