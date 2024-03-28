@@ -1,9 +1,8 @@
 package hhplus.tdd.entity;
 
+import hhplus.tdd.domain.LectureDomain;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,7 +10,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="LECTURE")
@@ -22,6 +20,9 @@ import java.time.LocalDateTime;
         allocationSize = 1
 )
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@EqualsAndHashCode
+@ToString
 public class LectureEntity {
     @Id
     @Column(name="ID")
@@ -41,4 +42,13 @@ public class LectureEntity {
     @Column(name="UPDATE_TIME")
     @LastModifiedDate
     private LocalDateTime updateTime;
+
+    public LectureDomain toDomain(){
+        return new LectureDomain(
+                this.id,
+                this.name,
+                this.lectureDate,
+                this.updateTime
+        );
+    }
 }

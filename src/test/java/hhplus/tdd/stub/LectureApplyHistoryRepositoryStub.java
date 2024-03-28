@@ -11,8 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class LectureApplyHistoryRepositoryStub implements LectureApplyHistoryRepository {
 
-//    List<LectureApplyHistoryEntity> store = new ArrayList<>();
-
     Map<LectureApplyHistoryEntityPK, LectureApplyHistoryEntity> store = new ConcurrentHashMap<>();
 
     public void clear(){
@@ -29,14 +27,19 @@ public class LectureApplyHistoryRepositoryStub implements LectureApplyHistoryRep
 
     @Override
     public LectureApplyHistoryEntity save(LectureApplyHistoryEntity lectureApplyHistoryEntity) {
-        lectureApplyHistoryEntity.setCreateTime(LocalDateTime.now());
+
+        LectureApplyHistoryEntity updateEntity = new LectureApplyHistoryEntity(
+                lectureApplyHistoryEntity.getUserId(),
+                lectureApplyHistoryEntity.getLectureId(),
+                LocalDateTime.now()
+        );
 
         store.put(
                 new LectureApplyHistoryEntityPK(
                         lectureApplyHistoryEntity.getUserId(),
                         lectureApplyHistoryEntity.getLectureId()
                 ),
-                lectureApplyHistoryEntity
+                updateEntity
         );
 
         return lectureApplyHistoryEntity;

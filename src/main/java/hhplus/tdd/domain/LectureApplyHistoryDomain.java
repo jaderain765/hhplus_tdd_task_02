@@ -1,6 +1,5 @@
 package hhplus.tdd.domain;
 
-import hhplus.tdd.dto.LectureApplyHistoryDTO;
 import hhplus.tdd.entity.LectureApplyHistoryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +16,7 @@ public class LectureApplyHistoryDomain {
     private LocalDateTime createTime;
 
     public LectureApplyHistoryEntity toEntity(){
-        this.validate();
+        validate();
 
         LectureApplyHistoryEntity LectureApplyHistoryEntity = new LectureApplyHistoryEntity(
                 this.userId,
@@ -26,18 +25,6 @@ public class LectureApplyHistoryDomain {
         );
 
         return LectureApplyHistoryEntity;
-    }
-
-    public LectureApplyHistoryDTO toDTO(){
-        this.validate();
-
-        LectureApplyHistoryDTO LectureApplyHistoryDTO = new LectureApplyHistoryDTO(
-                this.userId,
-                this.lectureId,
-                this.createTime
-        );
-
-        return LectureApplyHistoryDTO;
     }
 
     public void validate() {
