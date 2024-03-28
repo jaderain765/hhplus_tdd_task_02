@@ -1,6 +1,7 @@
 package hhplus.tdd.domain;
 
 import hhplus.tdd.entity.LectureApplyHistoryEntity;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LectureApplyHistoryDomainTest {
     @Test
+    @DisplayName("엔티티 객체 변환 테스트")
     void toEntity() {
         // given
         Long userId = 1L;
@@ -34,6 +36,7 @@ class LectureApplyHistoryDomainTest {
     }
 
     @Test
+    @DisplayName("도메인의 검증로직 테스트")
     void validate() {
         // given
         Long userId_1 = 1L;

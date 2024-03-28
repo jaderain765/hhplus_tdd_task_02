@@ -15,18 +15,18 @@ public class LectureRepositoryStub implements LectureRepository {
 
     Map<Long, LectureEntity> store = new ConcurrentHashMap<>();
 
-    AtomicLong id = new AtomicLong(1L);
+    AtomicLong idSeq = new AtomicLong(1L);
 
     public void clear(){
         store.clear();
-        id.set(1L);
+        idSeq.set(1L);
 
         String input = "2024-03-23 15:00:00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         // 특강 정보 임의로 생성
         store.put(
-                id.getAndAdd(1L),
+                idSeq.getAndAdd(1L),
                 new LectureEntity(
                         1L,
                         "TDD특강",
@@ -42,15 +42,15 @@ public class LectureRepositoryStub implements LectureRepository {
     }
 
     @Override
-    public Optional<LectureEntity> findById(Long Id) {
-        return Optional.of(store.get(id));
+    public Optional<LectureEntity> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override
     public LectureEntity save(LectureEntity lectureEntity) {
 
         Long lectureId = (lectureEntity.getId() == null) ?
-                id.getAndAdd(1) :
+                idSeq.getAndAdd(1) :
                 lectureEntity.getId();
 
         LectureEntity lecture = new LectureEntity(

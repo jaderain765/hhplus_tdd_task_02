@@ -1,7 +1,6 @@
 package hhplus.tdd.repository;
 
 import hhplus.tdd.entity.LectureEntity;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
